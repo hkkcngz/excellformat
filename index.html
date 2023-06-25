@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Javascript Excel</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+
+    <!-- (A) JAVASCRIPT -->
+    <!-- https://sheetjs.com/ 
+    https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js-->
+    <script src="assets/lib/xlsx.full.min.js"></script>
+    <script defer src="assets/3a-read-array.js"></script>
+    <!--
+    <script defer src="assets/3b-read-json.js"></script>
+    -->
+  </head>
+  <body>
+
+    <div class="container d-flex justify-content-center my-100">
+      <div class="row">
+        <div class="col-md-12 mb-5">
+            <h3>1. Dosya Seçiniz</h3>
+            <div class="file-drop-area">
+              <span class="choose-file-button">Dosya Seçiniz</span>
+              <span class="file-message">veya dosyayı bu alana sürükleyip bırakın.</span>
+              <input class="file-input" type="file" id="demo">
+            </div>
+            <br>
+            <h3>2. Excell'den Kolon Seçiniz</h3>
+            <div id="selectColumn"></div>
+            <br>
+            <button id="btnBringColumns" type="button" class="btn btn-primary">Seçili Kolon Bilgilerini Getir</button>
+            <br>
+            <br>
+            <h3>3. Kolon Liste Önizleme</h3>
+            <textarea id="previewData" class="form-control" cols="30" rows="10" placeholder="Sutündaki bilgiler"></textarea>
+            <br>
+            <h3>4. Çıktı</h3>
+            <textarea id="outputData" class="form-control" cols="30" rows="10" placeholder="Formatlanmış bilgiler"></textarea>
+
+            <div>
+              <br> <br> <br>
+              <img src="assets/mkc_logo.png" class="rounded mx-auto d-block" height="150" alt="">
+              <h6 class="text-center">MKC Harita & Kadastro Mühendislik</h6>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/bootstrap/jquery.min.js"></script>
+  </body>
+</html>
