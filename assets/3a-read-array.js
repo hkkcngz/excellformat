@@ -1,7 +1,13 @@
-var allData;
+var allData, isNCN;
 
 
 document.getElementById("demo").onchange = evt => {
+
+  let files = evt.target.files
+  let fileName = files[0].name
+  let extension = fileName.substr(fileName.lastIndexOf('.') + 1)
+  isNCN = extension === "NCN" ? true : false;
+
   // (A) NEW FILE READER
   var reader = new FileReader();
 
@@ -25,6 +31,12 @@ document.getElementById("demo").onchange = evt => {
     console.log(data);
     allData = data;
 
+    if(isNCN) {
+      for (let i = 0; i < allData.length; i++) {
+        allData[i] = allData[i][0].split(" ");
+      }
+    }
+
     for (let i = 0; i < allData[0].length; i++) {
       const element = allData[0][i];
       console.log(element)
@@ -43,7 +55,7 @@ document.getElementById("demo").onchange = evt => {
   <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
 </div>
 */
-
+var convertedArrays;
 function bringColumn(data, column) { // allData
   previewData.innerHTML = "";
   outputData.innerHTML = "";
@@ -51,6 +63,8 @@ function bringColumn(data, column) { // allData
     const element = data[i][column];
     previewData.innerHTML += element + '\n';
 
+    data[i].push("\"" + convert(element) + "\"");
+    convertedArrays = data;
     outputData.innerHTML += convert(element) + '\n';
   }
 }
@@ -87,5 +101,30 @@ $(document).on('change', '.file-input', function() {
     textbox.text(fileName);
   } else {
     textbox.text(filesCount + ' files selected');
+  }
+});
+
+function download(rows) {
+  let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+  console.log("CSV Content:");
+  console.log(csvContent);
+  var encodedUri = encodeURI(csvContent);
+  window.open(encodedUri);
+
+  /* dosyaya isim vermek için:
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_data.csv");
+    document.body.appendChild(link); // Required for FF
+
+    link.click();
+  */
+}
+
+btnDownload.addEventListener("click", () => {
+  console.log("indirme işlemi başlıyor...");
+  console.log(convertedArrays);
+  if(convertedArrays!=null) {
+    download(convertedArrays);
   }
 });
